@@ -2,23 +2,33 @@
 # A Capital I Project
 
 # Imports
+import platform
+import os
 from tkinter import *
 import tkinter.messagebox
 from pytube import *
-from winreg import *
 import webbrowser
 
+if platform.system() == "Windows":
+    from winreg import *
 
-# Getting the downloads folder
-with OpenKey(HKEY_CURRENT_USER, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders') as key:
-    Downloads = QueryValueEx(key, '{374DE290-123F-4565-9164-39C4925E467B}')[0]
+    # Getting Windows download path registry
+    with OpenKey(HKEY_CURRENT_USER, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders') as key:
+        Downloads = QueryValueEx(key, '{374DE290-123F-4565-9164-39C4925E467B}')[0]
+elif platform.system() == "Darwin" or platform.system() == "Linux":
+    # Compatible with Linux and Mac
+    Downloads = os.path.expanduser("~") + "/Downloads/"
+else:
+    print("Open YT Tool is not compatible with your OS.")
+    exit()
 
 
-# Functions called on events
+# Function called on text being pressed, used to open disclaimer
 def callback(url):
     webbrowser.open_new(url)
 
 
+# Function called to download video on being called
 def buttonPressed():
     if audioCheck == 0:
         try:
@@ -27,7 +37,7 @@ def buttonPressed():
             tkinter.messagebox.showinfo("Open YT Tool", "Downloaded Successfully!")
         except:
             tkinter.messagebox.showerror("Open YT Tool",
-                                      "Cannot Connect to Internet, or invalid link. \nCheck your internet connection.")
+                                       "Cannot Connect to Internet, or invalid link. \nCheck your internet connection.")
     else:
         try:
             yt = YouTube(ent.get())
@@ -35,7 +45,7 @@ def buttonPressed():
             tkinter.messagebox.showinfo("Open YT Tool", "Downloaded Successfully!")
         except:
             tkinter.messagebox.showerror("Open YT Tool",
-                                      "Cannot Connect to Internet, or invalid link. \nCheck your internet connection.")
+                                       "Cannot Connect to Internet, or invalid link. \nCheck your internet connection.")
 
 
 # Window
@@ -62,7 +72,7 @@ aud.pack(side=TOP)
 txt1 = Label(root, text="Before downloading, read the disclaimer at")
 txt1.pack(side=TOP)
 
-link = Label(root, text="https://github.com", fg="blue", cursor="hand2")
+link = Label(root, text="https://github.com/ (click here)", fg="blue", cursor="hand2")
 link.pack(side=TOP)
 link.bind("<Button-1>", lambda e: callback("https://github.com/capital-I/open-yt-tool/blob/main/DISCLAIMER.md"))
 
