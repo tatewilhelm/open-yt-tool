@@ -9,6 +9,7 @@ import tkinter.messagebox
 from pytube import *
 import webbrowser
 
+# Platform download folder being found
 if platform.system() == "Windows":
     from winreg import *
 
@@ -30,7 +31,8 @@ def callback(url):
 
 # Function called to download video on being called
 def buttonPressed():
-    if audioCheck == 0:
+    if audioCheck.get() == 0:
+        print("Video")
         try:
             yt = YouTube(ent.get())
             yt.streams.first().download(Downloads)
@@ -39,6 +41,7 @@ def buttonPressed():
             tkinter.messagebox.showerror("Open YT Tool",
                                        "Cannot Connect to Internet, or invalid link. \nCheck your internet connection.")
     else:
+        print("Audio")
         try:
             yt = YouTube(ent.get())
             yt.streams.last().download(Downloads)

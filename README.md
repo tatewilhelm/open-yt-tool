@@ -11,7 +11,7 @@ Open YT Tool is based off 6 modules, all modules use Python 3.<br>
 tkinter is used as the GUI Module 
 pytube used to download YT videos 
 winreg used to get the Windows Download Folder 
-webbrowser used to open Githubm link to DISCLAIMER.md
+webbrowser used to open Github link to DISCLAIMER.md
 platform used to get the current os's name
 os used to combine files
 ```
@@ -21,10 +21,10 @@ To compile Open YT Tool for releases, use PyInstaller. Make sure that icon.png i
 as the output. Use the command below:<br>
 
 Windows:<br>
-`pyinstaller --noconsole --onedir --icon=icon.ico main.py`
+`pyinstaller --noconsole --onefile --icon=icon.ico main.py`
 
 Linux:<br>
-`pyinstaller --noconsole --onedir --icon=icon.png main.py`
+`pyinstaller --noconsole --onefile --icon=icon.png main.py`
 
 Mac:<br>
-`pyinstaller --noconsole --onedir --icon=icon.png main.py`
+`pyinstaller --noconsole --onefile --icon=icon.png main.py`
